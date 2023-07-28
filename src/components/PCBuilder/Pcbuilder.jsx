@@ -1,13 +1,17 @@
 import Link from "next/link";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { remove } from "../../redux/features/Pcbuild/pcbuildslice";
+import {
+  remove,
+  removeotheritem,
+} from "../../redux/features/Pcbuild/pcbuildslice";
 
 const Pcbuilder = ({ category }) => {
   const {
     item: items,
     totalprice,
     itemaddcout,
+    otheritem,
   } = useSelector((state) => state.pcbuild);
   const dispatch = useDispatch();
   console.log(items["CPU"]);
@@ -32,7 +36,7 @@ const Pcbuilder = ({ category }) => {
           PC Builder - Build Your Own Computer
         </p>
         <p className=" text-base text-white rounded-lg font-bold bg-orange-900 px-5 py-3 ">
-          total price: {totalprice}
+          total price: {totalprice.toFixed(2)}
         </p>
       </div>
       <div>
@@ -112,13 +116,59 @@ const Pcbuilder = ({ category }) => {
                     <li className="flex justify-between items-center border-b-2 border-gray-300 p-2">
                       <div className="flex justify-between items-start gap-3">
                         <img src={item.image} alt="" className="w-20 h-20" />
-                        <p className="font-bold text-blue-500">{item.name}</p>
+                        <div>
+                          <p className="font-bold text-blue-500">{item.name}</p>
+                          <div className="flex justify-between items-start gap-3 my-2">
+                            {otheritem[item.name]?.image !== undefined && (
+                              <img
+                                src={otheritem[item.name]?.image}
+                                alt=""
+                                className="w-10 h-10"
+                              />
+                            )}
+                            <div>
+                              <h1 className="font-semibold text-sm">
+                                {otheritem[item.name]?.name}
+                              </h1>
+                              <div className="text-sm text-gray-500">
+                                {otheritem[item.name]?.key_features
+                                  ?.split(",")
+                                  .map((feature) => (
+                                    <div className="flex items-center my-2">
+                                      <div className="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
+                                      <div>{feature}</div>
+                                    </div>
+                                  ))}
+                              </div>
+                              <p className="font-extrabold">
+                                {otheritem[item.name]?.price}
+                                {otheritem[item.name]?.status}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div>
-                        <button className="btn bg-red-600 text-white border-0">
-                          Select
-                        </button>
-                      </div>
+                      {otheritem[item.name] !== undefined ? (
+                        <div>
+                          <button
+                            className="btn bg-red-600 text-white border-0"
+                            onClick={() =>
+                              dispatch(removeotheritem(otheritem[item.name]))
+                            }
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      ) : (
+                        <div>
+                          <Link
+                            href={`/otheritem/${item.id}`}
+                            className="btn bg-sky-600 text-white border-0"
+                          >
+                            Select
+                          </Link>
+                        </div>
+                      )}
                     </li>
                   ))}
                 </>
