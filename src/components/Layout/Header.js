@@ -1,8 +1,10 @@
 import axios from "axios";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const Header = () => {
+  const { data: session } = useSession();
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     axios.get("http://localhost:3000/api/category").then((response) => {
@@ -78,7 +80,42 @@ const Header = () => {
           ))}
         </ul>
       </div>
+
       <div className="navbar-end">
+        {session?.user ? (
+          <div className="dropdown dropdown-end mx-5">
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">
+                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
+              </div>
+            </label>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <a className="justify-between">
+                  {session?.user?.name}
+                  <span className="badge">New</span>
+                </a>
+              </li>
+              <li>
+                <a>Settings</a>
+              </li>
+              <li>
+                <a onClick={() => signOut()}>Logout</a>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <Link
+            style={{ textDecoration: "none", color: "white" }}
+            href="/login"
+          >
+            <button className="btn bg-[#eb3e8f] text-white">Login</button>
+          </Link>
+        )}
+
         <Link href="/pcbuilder" className="btn bg-[#2c2d4f] text-white">
           {" "}
           PC Builder
