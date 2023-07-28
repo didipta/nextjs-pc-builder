@@ -33,8 +33,14 @@ const pcbuildslice = createSlice({
       delete state.otheritem[product.category];
       state.totalprice -= product.price.split("$")[1];
     },
+    removeall: (state) => {
+      state.item = {};
+      state.totalprice = 0;
+      state.itemaddcout = 0;
+      state.otheritem = {};
+    },
   },
 });
-export const { addItem, remove, otheritem, removeotheritem } =
+export const { addItem, remove, otheritem, removeotheritem, removeall } =
   pcbuildslice.actions;
 export default pcbuildslice.reducer;

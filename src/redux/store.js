@@ -5,5 +5,5 @@ export const store = configureStore({
   reducer: {
     pcbuild: pcbuildslice,
   },
-  // devTools: false,
+  devTools: false,
 });

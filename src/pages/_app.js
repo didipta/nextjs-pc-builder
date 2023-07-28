@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import NextNProgress from "nextjs-progressbar";
 import { Provider } from "react-redux";
 import { store } from "../redux/store";
-
+import { Toaster } from "react-hot-toast";
 
 export default function App({ Component, pageProps }) {
   return (
@@ -21,6 +21,7 @@ export default function App({ Component, pageProps }) {
         <Layout>
           <Component {...pageProps} />
         </Layout>
+        <Toaster />
       </Provider>
     </>
   );

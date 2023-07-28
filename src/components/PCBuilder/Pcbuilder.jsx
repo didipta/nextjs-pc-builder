@@ -3,8 +3,10 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   remove,
+  removeall,
   removeotheritem,
 } from "../../redux/features/Pcbuild/pcbuildslice";
+import { toast } from "react-hot-toast";
 
 const Pcbuilder = ({ category }) => {
   const {
@@ -25,9 +27,17 @@ const Pcbuilder = ({ category }) => {
           <button
             className="btn bg-pink-600 text-white border-0"
             disabled={itemaddcout === 6 ? false : true}
+            onClick={() => {
+              if (itemaddcout === 6) {
+                toast.success("Build Complete");
+                dispatch(removeall());
+              } else {
+                toast.error("Please add 6 items");
+              }
+            }}
           >
             {" "}
-            Add To Builder
+            Complete Build
           </button>
         </div>
       </div>
@@ -36,7 +46,7 @@ const Pcbuilder = ({ category }) => {
           PC Builder - Build Your Own Computer
         </p>
         <p className=" text-base text-white rounded-lg font-bold bg-orange-900 px-5 py-3 ">
-          total price: {totalprice.toFixed(2)}
+          total price: ${totalprice.toFixed(2)}
         </p>
       </div>
       <div>
@@ -72,8 +82,10 @@ const Pcbuilder = ({ category }) => {
                               ))}
                           </div>
                           <p className="font-extrabold">
-                            {items[item.name]?.price}
-                            {items[item.name]?.status}
+                            {items[item.name]?.price} {"  "}
+                            <span className=" text-xs text-gray-400">
+                              {items[item.name]?.status}
+                            </span>
                           </p>
                         </div>
                       </div>
@@ -141,8 +153,10 @@ const Pcbuilder = ({ category }) => {
                                   ))}
                               </div>
                               <p className="font-extrabold">
-                                {otheritem[item.name]?.price}
-                                {otheritem[item.name]?.status}
+                                {otheritem[item.name]?.price} {"  "}
+                                <span className=" text-xs text-gray-400">
+                                  {otheritem[item.name]?.status}
+                                </span>
                               </p>
                             </div>
                           </div>

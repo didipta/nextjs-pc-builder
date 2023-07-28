@@ -39,7 +39,7 @@ const itemsadd = ({ categories }) => {
                 className="btn bg-sky-600 text-white border-0"
                 onClick={() => dispatch(otheritem(item))}
               >
-                Add
+                Add To Builder
               </Link>
             </div>
           </div>
