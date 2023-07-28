@@ -79,7 +79,10 @@ const Header = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn bg-[#2c2d4f] text-white"> PC Builder</a>
+        <Link href="/pcbuilder" className="btn bg-[#2c2d4f] text-white">
+          {" "}
+          PC Builder
+        </Link>
       </div>
     </div>
   );
