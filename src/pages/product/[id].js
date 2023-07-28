@@ -28,7 +28,7 @@ export async function getStaticPaths() {
     });
   });
 
-  console.log(categoryArray);
+ 
 
   const paths = categoryArray.map((category) => ({
     params: {
@@ -36,7 +36,6 @@ export async function getStaticPaths() {
     },
   }));
 
-  console.log(paths);
 
   return { paths, fallback: false };
 }

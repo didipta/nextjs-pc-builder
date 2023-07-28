@@ -2,7 +2,6 @@ import React from "react";
 import Category from "../../components/Category/Category";
 
 const singlecategory = ({ categories }) => {
-  console.log(categories);
   return (
     <div>
       <Category categories={categories} />
