@@ -15,7 +15,7 @@ const Productcard = ({ product }) => {
         <p className="my-1 text-lg font-semibold">{product?.price}</p>
         <div className="card-actions justify-end">
           <Link
-            href={`/product/${product.category}?pid=${product.id}`}
+            href={`/product/${product.category}-${product.id}`}
             className="px-3 py-1 rounded-lg bg-[#2c2d4f] text-white"
           >
             Product details
