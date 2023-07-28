@@ -21,14 +21,14 @@ const Productdetail = ({ product }) => {
         </div>
         <div className=" text-base font-medium">{product?.description}</div>
         <h1 className="text-2xl font-semibold">{product?.price}</h1>
-        <p>
+        <div>
           {product?.key_features?.split(",").map((feature) => (
-            <div className="flex items-center my-2">
+            <li className="flex items-center my-2">
               <div className="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
               <div>{feature}</div>
-            </div>
+            </li>
           ))}
-        </p>
+        </div>
       </div>
     </div>
   );
