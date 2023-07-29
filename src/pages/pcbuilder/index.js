@@ -12,7 +12,7 @@ const index = ({ category }) => {
 export default index;
 
 export async function getServerSideProps() {
-  const res = await fetch(`http://localhost:3000/api/category`);
+  const res = await fetch(`https://server-side-beta.vercel.app/category`);
   const data = await res.json();
   return {
     props: {

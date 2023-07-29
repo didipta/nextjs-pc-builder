@@ -16,7 +16,6 @@ const Pcbuilder = ({ category }) => {
     otheritem,
   } = useSelector((state) => state.pcbuild);
   const dispatch = useDispatch();
-  console.log(items["CPU"]);
   return (
     <div className="lg:w-10/12 mx-auto border-2 my-3 rounded-lg lg:p-5">
       <div className=" flex justify-between items-center p-2">
@@ -54,7 +53,10 @@ const Pcbuilder = ({ category }) => {
           {category?.map((item) => (
             <>
               {item.name !== "Others" && (
-                <li className="flex justify-between items-center border-b-2 border-gray-300 p-2">
+                <li
+                  className="flex justify-between items-center border-b-2 border-gray-300 p-2"
+                  key={item.id}
+                >
                   <div className="flex justify-between items-start gap-3">
                     <img src={item.image} alt="" className="w-20 h-20" />
                     <div>
@@ -125,7 +127,10 @@ const Pcbuilder = ({ category }) => {
               {item.name === "Others" && (
                 <>
                   {item.items.map((item) => (
-                    <li className="flex justify-between items-center border-b-2 border-gray-300 p-2">
+                    <li
+                      className="flex justify-between items-center border-b-2 border-gray-300 p-2"
+                      key={item.id}
+                    >
                       <div className="flex justify-between items-start gap-3">
                         <img src={item.image} alt="" className="w-20 h-20" />
                         <div>

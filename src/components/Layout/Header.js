@@ -7,9 +7,11 @@ const Header = () => {
   const { data: session } = useSession();
   const [categories, setCategories] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3000/api/category").then((response) => {
-      setCategories(response.data.data);
-    });
+    axios
+      .get("https://server-side-beta.vercel.app/category")
+      .then((response) => {
+        setCategories(response.data.data);
+      });
   }, []);
 
   return (

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import Link from "next/link";
 import { otheritem } from "../../redux/features/Pcbuild/pcbuildslice";
 
-const itemsadd = ({ categories }) => {
+const otheritemsadd = ({ categories }) => {
   const dispatch = useDispatch();
   return (
     <div className="my-10 lg:mx-20">
@@ -12,16 +12,19 @@ const itemsadd = ({ categories }) => {
         {categories?.name}
       </p>
       <div>
-        {categories?.products?.map((item) => (
-          <div className="flex justify-between items-center border-b-2 border-gray-300 p-2">
+        {categories?.products?.map((item, index) => (
+          <div
+            className="flex justify-between items-center border-b-2 border-gray-300 p-2"
+            key={index}
+          >
             <div className="flex justify-between items-start gap-3">
               <img src={item.image} alt="" className="w-40" />
               <div>
                 <p className="font-bold text-blue-500">{item.name}</p>
                 <div>
                   <div className="text-sm text-gray-500">
-                    {item?.key_features?.split(",").map((feature) => (
-                      <div className="flex items-center my-2">
+                    {item?.key_features?.split(",").map((feature, index) => (
+                      <div className="flex items-center my-2" key={index}>
                         <div className="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
                         <div>{feature}</div>
                       </div>
@@ -49,25 +52,35 @@ const itemsadd = ({ categories }) => {
   );
 };
 
-export default itemsadd;
-export async function getStaticPaths() {
-  const res = await fetch("http://localhost:3000/api/product");
-  const category = await res.json();
+export default otheritemsadd;
 
-  const paths = category.data.map((category) => ({
-    params: { id: category.id.toString() },
+export async function getStaticPaths() {
+  const res = await fetch("https://server-side-beta.vercel.app/product");
+  const data = await res.json();
+
+  const paths = data?.data?.map((item) => ({
+    params: { id: item.id.toString() },
   }));
 
   return { paths, fallback: false };
 }
 
 export async function getStaticProps({ params }) {
-  const res = await fetch(`http://localhost:3000/api/category?Id=${params.id}`);
+  try {
+    const res = await fetch(
+      `https://server-side-beta.vercel.app/category/${params.id}`
+    );
 
-  const data = await res.json();
-  return {
-    props: {
-      categories: data.data,
-    },
-  };
+    const data = await res.json();
+    return {
+      props: {
+        categories: data.data,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+    return {
+      notFound: true, // Return a 404 page or error page
+    };
+  }
 }

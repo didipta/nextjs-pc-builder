@@ -50,19 +50,22 @@ const itemsadd = ({ categories }) => {
 };
 
 export default itemsadd;
-export async function getStaticPaths() {
-  const res = await fetch("http://localhost:3000/api/product");
-  const category = await res.json();
 
-  const paths = category.data.map((category) => ({
-    params: { id: category.id.toString() },
+export async function getStaticPaths() {
+  const res = await fetch("https://server-side-beta.vercel.app/product");
+  const data = await res.json();
+
+  const paths = data?.data?.map((item) => ({
+    params: { id: item.id.toString() },
   }));
 
   return { paths, fallback: false };
 }
 
 export async function getStaticProps({ params }) {
-  const res = await fetch(`http://localhost:3000/api/category?Id=${params.id}`);
+  const res = await fetch(
+    `https://server-side-beta.vercel.app/category/${params.id}`
+  );
 
   const data = await res.json();
   return {

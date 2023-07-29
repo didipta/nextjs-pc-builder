@@ -8,7 +8,8 @@ const index = () => {
           className="flex items-center gap-3 shadow-lg rounded-lg p-5 font-bold cursor-pointer hover:bg-gray-100"
           onClick={() => {
             signIn("google", {
-              callbackUrl: "http://localhost:3000/",
+              callbackUrl:
+                "https://pc-builder-assignment-6-e0sjh99d5-didipta.vercel.app/",
             });
           }}
         >

@@ -5,7 +5,6 @@ import Productcard from "../singleproduct/Productcard";
 import Link from "next/link";
 
 const Homepage = ({ categories, products }) => {
-  console.log(products);
   return (
     <>
       <Bannner />

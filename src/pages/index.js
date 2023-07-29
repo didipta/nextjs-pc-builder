@@ -9,10 +9,10 @@ export default function Home({ categories, products }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch(`http://localhost:3000/api/category`);
+  const res = await fetch(`https://server-side-beta.vercel.app/category`);
   const data = await res.json();
 
-  const res2 = await fetch(`http://localhost:3000/api/product`);
+  const res2 = await fetch(`https://server-side-beta.vercel.app/product`);
   const data2 = await res2.json();
   return {
     props: {
